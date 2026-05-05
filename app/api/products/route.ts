@@ -7,7 +7,22 @@ export async function GET(request: Request) {
     const category = searchParams.get("category")
     const limit = searchParams.get("limit")
 
-    let sql = "SELECT * FROM products WHERE is_active = 1"
+    let sql = `
+      SELECT
+        id,
+        name,
+        brand,
+        model,
+        category,
+        CAST(price AS CHAR) AS price,
+        description,
+        CAST(features AS CHAR) AS features,
+        image_url,
+        stock,
+        is_active
+      FROM products
+      WHERE is_active = 1
+    `
     const params: any[] = []
 
     if (category) {
@@ -26,6 +41,9 @@ export async function GET(request: Request) {
     return NextResponse.json(products)
   } catch (error) {
     console.error("Error fetching products:", error)
-    return NextResponse.json({ error: "Error fetching products" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching products", details: error instanceof Error ? error.message : String(error) },
+      { status: 500 }
+    )
   }
 }
