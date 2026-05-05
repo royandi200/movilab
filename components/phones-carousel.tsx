@@ -22,12 +22,12 @@ interface ProductFromAPI {
   id: string
   name: string
   price: number
-  marca: string
+  brand: string
   category: string
   image_url?: string
   features?: string
   is_active: boolean
-  stock_quantity: number
+  stock: number
 }
 
 export default function PhonesCarousel({ scrollY }: PhonesCarouselProps) {
@@ -40,19 +40,31 @@ export default function PhonesCarousel({ scrollY }: PhonesCarouselProps) {
   useEffect(() => {
     async function fetchPhones() {
       try {
-        const res = await fetch("/api/products?category=celular&limit=10")
+        const res = await fetch("/api/products?category=celular&limit=20")
         if (!res.ok) throw new Error("Error fetching products")
         const data: ProductFromAPI[] = await res.json()
 
-        const mapped: Phone[] = data.map((p) => ({
-          name: p.name,
-          price: `$${Number(p.price).toLocaleString("es-CO")}`,
-          badge: p.marca,
-          features: p.features
-            ? p.features.split(",").map((f) => f.trim())
-            : [],
-          image: p.image_url || "/placeholder.svg",
-        }))
+        const mapped: Phone[] = data.map((p) => {
+          let parsedFeatures: string[] = []
+          if (p.features) {
+            try {
+              const parsed = JSON.parse(p.features)
+              parsedFeatures = Array.isArray(parsed)
+                ? parsed.map(String)
+                : p.features.split(",").map((f) => f.trim())
+            } catch {
+              parsedFeatures = p.features.split(",").map((f) => f.trim())
+            }
+          }
+
+          return {
+            name: p.name,
+            price: `$${Number(p.price).toLocaleString("es-CO")}`,
+            badge: p.brand || "",
+            features: parsedFeatures,
+            image: p.image_url || "/placeholder.svg",
+          }
+        })
 
         setFeaturedPhones(mapped)
       } catch (error) {
@@ -132,14 +144,16 @@ export default function PhonesCarousel({ scrollY }: PhonesCarouselProps) {
                                 alt={phone.name}
                                 fill
                                 className="object-contain drop-shadow-2xl"
-                                unoptimized={phone.image.startsWith("https://")}
+                                unoptimized
                               />
                             </div>
-                            <div className="absolute top-4 right-4">
-                              <span className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#d4c5f9] to-[#ffc4d6] text-[#2d2d3a] rounded-full shadow-md">
-                                {phone.badge}
-                              </span>
-                            </div>
+                            {phone.badge && (
+                              <div className="absolute top-4 right-4">
+                                <span className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-[#d4c5f9] to-[#ffc4d6] text-[#2d2d3a] rounded-full shadow-md">
+                                  {phone.badge}
+                                </span>
+                              </div>
+                            )}
                           </div>
 
                           {/* Product Info */}
