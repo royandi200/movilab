@@ -15,8 +15,7 @@ export async function GET(request: Request) {
       params.push(category)
     }
 
-    // Primero los que tienen imagen, luego por fecha descendente
-    sql += " ORDER BY (image_url IS NOT NULL AND image_url != '') DESC, created_at DESC"
+    sql += " ORDER BY CASE WHEN image_url IS NOT NULL AND image_url != '' THEN 0 ELSE 1 END ASC, created_at DESC"
 
     if (limit) {
       sql += " LIMIT ?"
