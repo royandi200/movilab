@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* MOVILAB Soft Tech Colors - Inspired by modern pastel tech aesthetic */
+  --soft-lavender: #e8e3f3;
+  --purple-light: #d4c5f9;
+  --pink-rose: #ffc4d6;
+  --pink-light: #f5d7e3;
+  --blue-pale: #b4d4ff;
+  --blue-soft: #a8c5da;
+  --off-white: #f8f7fc;
+  --text-dark: #2d2d3a;
+  --text-muted: #6b6b7e;
+
+  /* Updated to soft tech pastel palette */
+  --background: #f8f7fc;
+  --foreground: #2d2d3a;
+  --card: #ffffff;
+  --card-foreground: #2d2d3a;
+  --popover: #ffffff;
+  --popover-foreground: #2d2d3a;
+  --primary: #d4c5f9;
+  --primary-foreground: #2d2d3a;
+  --secondary: #e8e3f3;
+  --secondary-foreground: #2d2d3a;
+  --muted: #f5d7e3;
+  --muted-foreground: #6b6b7e;
+  --accent: #ffc4d6;
+  --accent-foreground: #2d2d3a;
+  --destructive: #ff6b9d;
+  --destructive-foreground: #ffffff;
+  --border: #e8e3f3;
+  --input: #e8e3f3;
+  --ring: #d4c5f9;
+  --radius: 1rem;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: #f8f7fc;
+  --sidebar-foreground: #2d2d3a;
+  --sidebar-primary: #d4c5f9;
+  --sidebar-primary-foreground: #2d2d3a;
+  --sidebar-accent: #e8e3f3;
+  --sidebar-accent-foreground: #2d2d3a;
+  --sidebar-border: #e8e3f3;
+  --sidebar-ring: #d4c5f9;
+}
+
+.dark {
+  /* Dark mode with soft tech colors */
+  --background: #1a1a2e;
+  --foreground: #f8f7fc;
+  --card: #252538;
+  --card-foreground: #f8f7fc;
+  --popover: #252538;
+  --popover-foreground: #f8f7fc;
+  --primary: #d4c5f9;
+  --primary-foreground: #1a1a2e;
+  --secondary: #3d3d52;
+  --secondary-foreground: #f8f7fc;
+  --muted: #3d3d52;
+  --muted-foreground: #a8a8bb;
+  --accent: #ffc4d6;
+  --accent-foreground: #1a1a2e;
+  --destructive: #ff6b9d;
+  --destructive-foreground: #f8f7fc;
+  --border: #3d3d52;
+  --input: #3d3d52;
+  --ring: #d4c5f9;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #1a1a2e;
+  --sidebar-foreground: #f8f7fc;
+  --sidebar-primary: #d4c5f9;
+  --sidebar-primary-foreground: #1a1a2e;
+  --sidebar-accent: #3d3d52;
+  --sidebar-accent-foreground: #f8f7fc;
+  --sidebar-border: #3d3d52;
+  --sidebar-ring: #d4c5f9;
+}
+
+/* Updated to use Roboto Mono from MOVILAB brand book */
+@theme inline {
+  --font-sans: "Roboto Mono", ui-monospace, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced smooth animations and transitions */
+* {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Adding levitation and pulse animations for WhatsApp button */
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-levitate {
+  animation: levitate 3s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
