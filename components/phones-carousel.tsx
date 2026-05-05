@@ -143,8 +143,11 @@ export default function PhonesCarousel({ scrollY }: PhonesCarouselProps) {
                                 src={phone.image}
                                 alt={phone.name}
                                 fill
+                                sizes="(max-width: 768px) 90vw, 45vw"
                                 className="object-contain drop-shadow-2xl"
-                                unoptimized
+                                priority={idx === 0}
+                                loading={idx === 0 ? "eager" : "lazy"}
+                                quality={80}
                               />
                             </div>
                             {phone.badge && (
